@@ -45,11 +45,13 @@
 #include <sensor_msgs/CameraInfo.h>
 
 #include <optris_drivers/Palette.h>
+#include "optris_drivers/ThermalImage.h"
 
 unsigned char*                    _bufferThermal = NULL;
 unsigned char*                    _bufferVisible = NULL;
 image_transport::Publisher*       _pubThermal;
 image_transport::Publisher*       _pubVisible;
+ros::Publisher*       _pubTest;
 unsigned int                      _frame = 0;
 
 evo::ImageBuilder              _iBuilder;
@@ -89,7 +91,13 @@ void onThermalDataReceive(const sensor_msgs::ImageConstPtr& image)
   _camera_info = _camera_info_manager->getCameraInfo();
   _camera_info.header = img.header;
   _camera_info_pub->publish(img, _camera_info);
-
+  
+  optris_drivers::ThermalImage tImg;
+  
+  tImg.maxT = _iBuilder.getIsothermalMax();
+  tImg.minT = _iBuilder.getIsothermalMin();
+  
+  _pubTest->publish(tImg);
   _pubThermal->publish(img);
 }
 
@@ -183,9 +191,11 @@ int main (int argc, char* argv[])
 
   image_transport::Publisher pubt = it.advertise("thermal_image_view", 1);
   image_transport::Publisher pubv = it.advertise("visible_image_view", 1);
+  ros::Publisher pubtest = n.advertise<optris_drivers::ThermalImage>("test", 1);
 
   _pubThermal = &pubt;
   _pubVisible = &pubv;
+  _pubTest = &pubtest;
 
   _sPalette = n.advertiseService("palette",  &onPalette);
 

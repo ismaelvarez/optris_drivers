@@ -33,6 +33,7 @@ add_message_files(
   FILES
   Temperature.msg
   Flag.msg
+  ThermalImage.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -50,6 +51,7 @@ generate_messages(
   DEPENDENCIES
     std_srvs
     std_msgs
+    sensor_msgs
 )
 
 generate_dynamic_reconfigure_options(
