@@ -45,6 +45,7 @@
 #include <sensor_msgs/CameraInfo.h>
 
 #include <optris_drivers/Palette.h>
+#include <gara_messages/IRCameraTemperature.h>
 #include "optris_drivers/ThermalImage.h"
 
 unsigned char*                    _bufferThermal = NULL;
@@ -92,10 +93,10 @@ void onThermalDataReceive(const sensor_msgs::ImageConstPtr& image)
   _camera_info.header = img.header;
   _camera_info_pub->publish(img, _camera_info);
   
-  optris_drivers::ThermalImage tImg;
+  gara_messages::IRCameraTemperature tImg;
   
-  tImg.maxT = _iBuilder.getIsothermalMax();
-  tImg.minT = _iBuilder.getIsothermalMin();
+  tImg.max = _iBuilder.getIsothermalMax();
+  tImg.max = _iBuilder.getIsothermalMin();
   
   _pubTest->publish(tImg);
   _pubThermal->publish(img);
@@ -191,7 +192,7 @@ int main (int argc, char* argv[])
 
   image_transport::Publisher pubt = it.advertise("thermal_image_view", 1);
   image_transport::Publisher pubv = it.advertise("visible_image_view", 1);
-  ros::Publisher pubtest = n.advertise<optris_drivers::ThermalImage>("test", 1);
+  ros::Publisher pubtest = n.advertise<gara_messages::IRCameraTemperature>("thermal_image_temperature_scale", 1);
 
   _pubThermal = &pubt;
   _pubVisible = &pubv;
