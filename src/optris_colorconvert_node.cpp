@@ -96,7 +96,7 @@ void onThermalDataReceive(const sensor_msgs::ImageConstPtr& image)
   gara_messages::IRCameraTemperature tImg;
   
   tImg.max = _iBuilder.getIsothermalMax();
-  tImg.max = _iBuilder.getIsothermalMin();
+  tImg.min = _iBuilder.getIsothermalMin();
   
   _pubTest->publish(tImg);
   _pubThermal->publish(img);
