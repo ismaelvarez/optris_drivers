@@ -52,7 +52,7 @@ unsigned char*                    _bufferThermal = NULL;
 unsigned char*                    _bufferVisible = NULL;
 image_transport::Publisher*       _pubThermal;
 image_transport::Publisher*       _pubVisible;
-ros::Publisher*       _pubTest;
+ros::Publisher*       _pubScale;
 unsigned int                      _frame = 0;
 
 evo::ImageBuilder              _iBuilder;
@@ -93,12 +93,12 @@ void onThermalDataReceive(const sensor_msgs::ImageConstPtr& image)
   _camera_info.header = img.header;
   _camera_info_pub->publish(img, _camera_info);
   
-  gara_messages::IRCameraTemperature tImg;
+  gara_messages::IRCameraTemperature scale;
   
-  tImg.max = _iBuilder.getIsothermalMax();
-  tImg.min = _iBuilder.getIsothermalMin();
+  scale.max = _iBuilder.getIsothermalMax();
+  scale.min = _iBuilder.getIsothermalMin();
   
-  _pubTest->publish(tImg);
+  _pubScale->publish(scale);
   _pubThermal->publish(img);
 }
 
@@ -196,7 +196,7 @@ int main (int argc, char* argv[])
 
   _pubThermal = &pubt;
   _pubVisible = &pubv;
-  _pubTest = &pubtest;
+  _pubScale = &pubtest;
 
   _sPalette = n.advertiseService("palette",  &onPalette);
 
