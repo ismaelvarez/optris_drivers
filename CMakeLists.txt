@@ -18,7 +18,6 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   dynamic_reconfigure
   camera_info_manager
-  gara_messages
 )
 
 ## System dependencies are found with CMake's conventions
