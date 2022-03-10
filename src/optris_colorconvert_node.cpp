@@ -45,7 +45,6 @@
 #include <sensor_msgs/CameraInfo.h>
 
 #include <optris_drivers/Palette.h>
-#include <gara_messages/IRCameraTemperature.h>
 #include "optris_drivers/TemperatureScale.h"
 
 unsigned char*                    _bufferThermal = NULL;
