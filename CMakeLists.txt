@@ -34,7 +34,7 @@ add_message_files(
   FILES
   Temperature.msg
   Flag.msg
-  ThermalImage.msg
+  TemperatureScale.msg
 )
 
 ## Generate services in the 'srv' folder
