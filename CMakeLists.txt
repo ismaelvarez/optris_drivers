@@ -12,6 +12,7 @@ endif()
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  gara_messages
   std_srvs
   sensor_msgs
   image_transport
@@ -33,7 +34,6 @@ add_message_files(
   FILES
   Temperature.msg
   Flag.msg
-  TemperatureScale.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -52,6 +52,7 @@ generate_messages(
     std_srvs
     std_msgs
     sensor_msgs
+    gara_messages
 )
 
 generate_dynamic_reconfigure_options(
@@ -78,6 +79,7 @@ catkin_package(
   image_transport
   message_runtime
   camera_info_manager
+  gara_messages
  DEPENDS
   libudev-dev
   Boost
